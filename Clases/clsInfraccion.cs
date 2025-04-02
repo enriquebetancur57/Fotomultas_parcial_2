@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Fotomultas_parcial_2.Clases
 {
-    public class clsInfracción
+    public class clsInfraccion
     {
         private DBExamenEntities dbExamen = new DBExamenEntities(); //para acceder a la base de datos
         public Infraccion infraccion { get; set; } //para acceder o manipular los atributos
@@ -32,7 +32,7 @@ namespace Fotomultas_parcial_2.Clases
             if (inf == null)
             {
                 //La infracción no exite, se debe insertar o placa no es valido
-                return "La placa no es valida o no existe una infracción";
+                return "La placa no es valida o no existe una infracción en el sistema";
             }
             dbExamen.Infraccions.AddOrUpdate(infraccion); //Actualiza un empleado en la tabla
             dbExamen.SaveChanges();
@@ -52,6 +52,10 @@ namespace Fotomultas_parcial_2.Clases
             }
         }
 
+        public List<Infraccion> ConsultarTodos()
+        {
+            return dbExamen.Infraccions.OrderBy(e => e.PlacaVehiculo).ToList();
+        }
         public string Eliminar()
         {
             try
