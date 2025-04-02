@@ -66,6 +66,7 @@ namespace Fotomultas_parcial_2.Clases
                 default:
                     return "Proceso no definido";
             }
+
         }
     }
 }
