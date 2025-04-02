@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Fotomultas_parcial_2.Controllers
 {
-    [RoutePrefix("UploadFiles")]
+    [RoutePrefix("api/UploadFiles")]
     public class UploadFilesController : ApiController
     {
         [HttpPost]
@@ -18,7 +18,8 @@ namespace Fotomultas_parcial_2.Controllers
             clsUpload UploadFiles = new clsUpload();
             UploadFiles.Request = Request;
             UploadFiles.Datos = Datos;
-            return await UploadFiles.GrabarArchivo();
+            UploadFiles.Proceso = Proceso;
+            return await UploadFiles.GrabarArchivo(false);
         }
     }
 }

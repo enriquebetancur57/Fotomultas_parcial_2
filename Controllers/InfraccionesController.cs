@@ -12,6 +12,15 @@ namespace Fotomultas_parcial_2.Controllers
     [RoutePrefix("api/Infracciones")]
     public class InfraccionesController : ApiController
     {
+
+        [HttpGet]
+        [Route("ConsultarImagenes")]
+        public IQueryable ConsultarImagenes(string Placa)
+        {
+            clsInfraccion Infraccion = new clsInfraccion();
+            return Infraccion.ConsultarFotoMultaXVehiculo(Placa);
+        }
+
         [HttpGet]
         [Route("ConsultarTodos")]
         public List<Infraccion> ConsultarTodos()

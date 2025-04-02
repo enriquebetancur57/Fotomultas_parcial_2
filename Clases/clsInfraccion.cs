@@ -97,5 +97,27 @@ namespace Fotomultas_parcial_2.Clases
                 return ex.Message; //Mensaje de error
             }
         }
+
+        public IQueryable ConsultarFotoMultaXVehiculo(string Placa)
+        {
+         return from V in dbExamen.Set<Vehiculo>()
+                join I in dbExamen.Set<Infraccion>()
+                on V.Placa equals I.PlacaVehiculo
+                join F in dbExamen.Set<FotoInfraccion>()
+                on I.idFotoMulta equals F.idInfraccion
+                where V.Placa == Placa
+                select new
+                {
+                    Placa = V.Placa,
+                    Marca = V.Marca,
+                    TipoVehiculo = V.TipoVehiculo,
+                    Color = V.Color,
+                    FechaInfraccion = I.FechaInfraccion,
+                    idFotoMulta = I.idFotoMulta,
+                    NombreFoto= F.NombreFoto
+                };
+        }
     }
 }
+
+    

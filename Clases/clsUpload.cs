@@ -15,7 +15,7 @@ namespace Fotomultas_parcial_2.Clases
         public HttpRequestMessage Request { get; set; }
         public string Datos { get; set; }
         public string Proceso { get; set; }
-        public async Task<HttpResponseMessage> GrabarArchivo()
+        public async Task<HttpResponseMessage> GrabarArchivo(bool v)
         {
             if (!Request.Content.IsMimeMultipartContent())
             {
