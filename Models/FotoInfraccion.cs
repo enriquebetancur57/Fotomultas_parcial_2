@@ -17,7 +17,8 @@ namespace Fotomultas_parcial_2.Models
         public int idFoto { get; set; }
         public string NombreFoto { get; set; }
         public int idInfraccion { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Infraccion Infraccion { get; set; }
     }
 }

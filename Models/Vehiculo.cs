@@ -24,8 +24,11 @@ namespace Fotomultas_parcial_2.Models
         public string TipoVehiculo { get; set; }
         public string Marca { get; set; }
         public string Color { get; set; }
-    
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [JsonIgnore]
         public virtual ICollection<Infraccion> Infraccions { get; set; }
     }
 }
