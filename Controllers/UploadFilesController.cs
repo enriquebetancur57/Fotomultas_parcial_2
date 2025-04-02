@@ -21,5 +21,13 @@ namespace Fotomultas_parcial_2.Controllers
             UploadFiles.Proceso = Proceso;
             return await UploadFiles.GrabarArchivo();
         }
+
+        [HttpGet]
+        public HttpResponseMessage Get(string NombreImagen)
+        {
+
+            clsUpload upload = new clsUpload();
+            return upload.ConsultarArchivo(NombreImagen);
+        }
     }
 }
