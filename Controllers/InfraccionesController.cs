@@ -60,7 +60,6 @@ namespace Fotomultas_parcial_2.Controllers
 
         [HttpDelete]
         [Route("EliminarXPlaca")]
-
         public string EliminarXPlaca(string Placa)
         {
             clsInfraccion Infraccion = new clsInfraccion();
