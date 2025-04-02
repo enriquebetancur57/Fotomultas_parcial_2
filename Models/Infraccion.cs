@@ -24,9 +24,14 @@ namespace Fotomultas_parcial_2.Models
         public string PlacaVehiculo { get; set; }
         public System.DateTime FechaInfraccion { get; set; }
         public string TipoInfraccion { get; set; }
-    
+        
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [JsonIgnore]
         public virtual ICollection<FotoInfraccion> FotoInfraccions { get; set; }
+
+        [JsonIgnore]
         public virtual Vehiculo Vehiculo { get; set; }
     }
 }
