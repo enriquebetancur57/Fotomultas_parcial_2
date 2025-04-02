@@ -9,6 +9,7 @@
 
 namespace Fotomultas_parcial_2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
