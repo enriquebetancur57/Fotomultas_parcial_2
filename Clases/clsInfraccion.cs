@@ -32,7 +32,7 @@ namespace Fotomultas_parcial_2.Clases
             if (inf == null)
             {
                 //La infracción no exite, se debe insertar o placa no es valido
-                return "La placa no es valida o no existe una infracción";
+                return "La placa no es valida o no existe una infracción en el sistema";
             }
             dbExamen.Infraccions.AddOrUpdate(infraccion); //Actualiza un empleado en la tabla
             dbExamen.SaveChanges();
