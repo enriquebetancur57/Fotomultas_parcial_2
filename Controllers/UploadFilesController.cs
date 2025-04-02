@@ -19,7 +19,7 @@ namespace Fotomultas_parcial_2.Controllers
             UploadFiles.request = Request;
             UploadFiles.Datos = Datos;
             UploadFiles.Proceso = Proceso;
-            return await UploadFiles.GrabarArchivo();
+            return await UploadFiles.GrabarArchivo(false);
         }
 
         [HttpGet]
@@ -28,6 +28,16 @@ namespace Fotomultas_parcial_2.Controllers
 
             clsUpload upload = new clsUpload();
             return upload.ConsultarArchivo(NombreImagen);
+        }
+
+        [HttpPut]
+        public async Task<HttpResponseMessage> ActualizarArchivo(HttpRequestMessage Request, string Datos, string Proceso)
+        {
+            clsUpload UploadFiles = new clsUpload();
+            UploadFiles.request = Request;
+            UploadFiles.Datos = Datos;
+            UploadFiles.Proceso = Proceso;
+            return await UploadFiles.GrabarArchivo(true);
         }
     }
 }

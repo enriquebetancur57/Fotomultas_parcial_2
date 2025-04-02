@@ -15,8 +15,9 @@ namespace Fotomultas_parcial_2.Clases
         public HttpRequestMessage request { get; set; }
         public string Datos { get; set; }
         public string Proceso { get; set; }
-        public async Task<HttpResponseMessage> GrabarArchivo()
-        {
+        public async Task<HttpResponseMessage> GrabarArchivo(bool Actualizar)
+        {   
+            string RptaError = "";
             if (!request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.UnsupportedMediaType);
@@ -40,14 +41,49 @@ namespace Fotomultas_parcial_2.Clases
                     }
                     if (File.Exists(Path.Combine(root, fileName)))
                     {
-                        File.Delete(file.LocalFileName);
-                        return request.CreateErrorResponse(HttpStatusCode.Conflict, "El archivo ya existe");
+                        if (Actualizar)
+                        {
+                            //Se borra el original
+                            File.Delete(Path.Combine(root, fileName));
+                            //Se crea el nuevo archivo con el mismo nombre
+                            File.Move(file.LocalFileName, Path.Combine(root, fileName));
+                            //No se debe agregar en la base de datos, porque ya existe
+                        }
+                        else
+                        {
+                            //No se pueden tener archivos con el mismo nombre. Es decir, las imágenes tienen que tener nombres únicos
+                            //Si el archivo existe, se borra el archivo temporal que se subió
+                            File.Delete(file.LocalFileName);
+                            //Se da una respuesta de error
+                            RptaError += "El archivo: " + fileName + " ya existe";
+                            //return request.CreateErrorResponse(HttpStatusCode.Conflict, "El archivo ya existe");
+                        }
                     }
-                    Archivos.Add(fileName);
-                    File.Move(file.LocalFileName, Path.Combine(root, fileName));
+                    else
+                    {
+                        Archivos.Add(fileName);
+                        //Se renombra el archivo
+                        File.Move(file.LocalFileName, Path.Combine(root, fileName));
+                    }
                 }
-                string Respuesta = ProcesarArchivos(Archivos);
-                return request.CreateResponse(HttpStatusCode.OK, "Archivo subido correctamente");
+                if (Archivos.Count > 0)
+                {
+                    //Envía a grabar la información de las imágenes
+                    string Respuesta = ProcesarArchivos(Archivos);
+                    //Se da una respuesta de éxito
+                    return request.CreateResponse(HttpStatusCode.OK, "Archivo subido con éxito");
+                }
+                else
+                {
+                    if (Actualizar)
+                    {
+                        return request.CreateResponse(HttpStatusCode.OK, "Archivo actualizado con éxito");
+                    }
+                    else
+                    {
+                        return request.CreateErrorResponse(HttpStatusCode.Conflict, "El(los) archivo(s) ya existe(n)");
+                    }
+                }
             }
             catch (Exception ex)
             {
