@@ -12,12 +12,12 @@ namespace Fotomultas_parcial_2.Clases
 {
     public class clsUpload
     {
-        public HttpRequestMessage Request { get; set; }
+        public HttpRequestMessage request { get; set; }
         public string Datos { get; set; }
         public string Proceso { get; set; }
-        public async Task<HttpResponseMessage> GrabarArchivo(bool v)
+        public async Task<HttpResponseMessage> GrabarArchivo()
         {
-            if (!Request.Content.IsMimeMultipartContent())
+            if (!request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.UnsupportedMediaType);
             }
@@ -25,7 +25,7 @@ namespace Fotomultas_parcial_2.Clases
             var provider = new MultipartFormDataStreamProvider(root);
             try
             {
-                await Request.Content.ReadAsMultipartAsync(provider);
+                await request.Content.ReadAsMultipartAsync(provider);
                 List<string> Archivos = new List<string>();
                 foreach (MultipartFileData file in provider.FileData)
                 {
@@ -41,26 +41,26 @@ namespace Fotomultas_parcial_2.Clases
                     if (File.Exists(Path.Combine(root, fileName)))
                     {
                         File.Delete(file.LocalFileName);
-                        return Request.CreateErrorResponse(HttpStatusCode.Conflict, "El archivo ya existe");
+                        return request.CreateErrorResponse(HttpStatusCode.Conflict, "El archivo ya existe");
                     }
                     Archivos.Add(fileName);
                     File.Move(file.LocalFileName, Path.Combine(root, fileName));
                 }
                 string Respuesta = ProcesarArchivos(Archivos);
-                return Request.CreateResponse(HttpStatusCode.OK, "Archivo subido correctamente");
+                return request.CreateResponse(HttpStatusCode.OK, "Archivo subido correctamente");
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al cargar el archivo: " + ex.Message);
+                return request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al cargar el archivo: " + ex.Message);
             }
         }
         private string ProcesarArchivos(List<string> Archivos)
         {
             switch (Proceso.ToUpper())
             {
-                case "FotoMulta":
+                case "Infraccion":
                     clsFotoInfraccion FotoMulta = new clsFotoInfraccion();
-                    FotoMulta.idFotoMulta = Datos;
+                    FotoMulta.idInfraccion = Datos;
                     FotoMulta.Archivos = Archivos;
                     return FotoMulta.GrabarFotoMulta();
                 default:

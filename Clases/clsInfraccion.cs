@@ -56,17 +56,22 @@ namespace Fotomultas_parcial_2.Clases
         {
             return dbExamen.Infraccions.OrderBy(e => e.PlacaVehiculo).ToList();
         }
-        public string Eliminar()
+        public string Eliminar(string Placa)
         {
             try
             {
                 //Se debe consultar primeramente la infracción para poder eliminarla
-                Infraccion inf = Consultar(infraccion.PlacaVehiculo);
+                Infraccion inf = Consultar(Placa);
                 if (inf == null)
                 {
                     //Si no existe, debe de insertarse una placa registrada o con infracciones
                     return "La placa no es valida";
                 }
+
+                // Eliminar las fotos asociadas a la infracción
+                var fotos = dbExamen.FotoInfraccions.Where(f => f.idInfraccion == inf.idFotoMulta).ToList();
+                dbExamen.FotoInfraccions.RemoveRange(fotos);
+
                 dbExamen.Infraccions.Remove(inf); //Elimina la infracción
                 dbExamen.SaveChanges();//Guarda los cambios
                 return "Se eliminó la infracción correctamente";

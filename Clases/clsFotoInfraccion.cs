@@ -9,7 +9,7 @@ namespace Fotomultas_parcial_2.Clases
     public class clsFotoInfraccion
     {
         private DBExamenEntities dbExamen = new DBExamenEntities();
-        public string idFotoMulta { get; set; }
+        public string idInfraccion { get; set; }
         public List<string> Archivos { get; set; }
         public string GrabarFotoMulta()
         {
@@ -20,7 +20,7 @@ namespace Fotomultas_parcial_2.Clases
                     foreach (string Archivo in Archivos)
                     {
                         FotoInfraccion Foto = new FotoInfraccion();
-                        Foto.idInfraccion = Convert.ToInt32(idFotoMulta);
+                        Foto.idInfraccion = Convert.ToInt32(idInfraccion);
                         Foto.NombreFoto = Archivo;
                         dbExamen.FotoInfraccions.Add(Foto);
                         dbExamen.SaveChanges();

@@ -12,7 +12,6 @@ namespace Fotomultas_parcial_2.Controllers
     [RoutePrefix("api/Infracciones")]
     public class InfraccionesController : ApiController
     {
-
         [HttpGet]
         [Route("ConsultarImagenes")]
         public IQueryable ConsultarImagenes(string Placa)
@@ -58,21 +57,11 @@ namespace Fotomultas_parcial_2.Controllers
         }
 
         [HttpDelete]
-        [Route("Eliminar")]
-
-        public string Eliminar([FromBody] Infraccion infraccion)
-        {
-            clsInfraccion Infraccion = new clsInfraccion();
-            Infraccion.infraccion = infraccion;
-            return Infraccion.Eliminar();
-        }
-
-        [HttpDelete]
         [Route("EliminarXPlaca")]
         public string EliminarXPlaca(string Placa)
         {
             clsInfraccion Infraccion = new clsInfraccion();
-            return Infraccion.EliminarXPlaca(Placa);
+            return Infraccion.Eliminar(Placa);
         }
     }
 }

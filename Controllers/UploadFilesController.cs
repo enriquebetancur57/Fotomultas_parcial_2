@@ -16,10 +16,10 @@ namespace Fotomultas_parcial_2.Controllers
         public async Task<HttpResponseMessage> GrabarArchivo(HttpRequestMessage Request, string Datos, string Proceso)
         {
             clsUpload UploadFiles = new clsUpload();
-            UploadFiles.Request = Request;
+            UploadFiles.request = Request;
             UploadFiles.Datos = Datos;
             UploadFiles.Proceso = Proceso;
-            return await UploadFiles.GrabarArchivo(false);
+            return await UploadFiles.GrabarArchivo();
         }
     }
 }
