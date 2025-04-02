@@ -9,6 +9,7 @@
 
 namespace Fotomultas_parcial_2.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -28,7 +29,6 @@ namespace Fotomultas_parcial_2.Models
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-        [JsonIgnore]
         public virtual ICollection<FotoInfraccion> FotoInfraccions { get; set; }
 
         [JsonIgnore]

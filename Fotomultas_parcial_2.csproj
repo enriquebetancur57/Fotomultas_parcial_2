@@ -168,6 +168,7 @@
     <Compile Include="Clases\clsUpload.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfraccionesController.cs" />
+    <Compile Include="Controllers\UploadFilesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
